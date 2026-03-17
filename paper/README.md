@@ -1,0 +1,2 @@
+Always document what you do in NOTES.md file. When you want to put a figure, put it in `figs` folder and reference it in the NOTES.md file.
+See [https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) on how to write a markdown file
