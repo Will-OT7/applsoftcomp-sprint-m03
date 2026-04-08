@@ -1,51 +1,13 @@
 {
   "by_date": {
-    "2024-01-15": 2,
-    "2024-01-14": 2,
-    "2024-01-13": 2,
-    "2024-01-12": 1,
-    "2024-01-11": 0,
-    "2024-01-10": 0,
-    "2024-01-09": 0
+    "2026-04-08": 0,
+    "2026-04-07": 0,
+    "2026-04-06": 0,
+    "2026-04-05": 0,
+    "2026-04-04": 0,
+    "2026-04-03": 0,
+    "2026-04-02": 0
   },
-  "by_industry": {
-    "Finance": 1,
-    "Technology": 1,
-    "Energy": 2,
-    "Healthcare": 1,
-    "Retail": 1,
-    "Manufacturing": 1
-  },
-  "sentiment_trends": {
-    "Finance": {
-      "positive": 1,
-      "negative": 0,
-      "neutral": 0
-    },
-    "Technology": {
-      "positive": 0,
-      "negative": 1,
-      "neutral": 0
-    },
-    "Energy": {
-      "positive": 0,
-      "negative": 0,
-      "neutral": 2
-    },
-    "Healthcare": {
-      "positive": 0,
-      "negative": 0,
-      "neutral": 1
-    },
-    "Retail": {
-      "positive": 1,
-      "negative": 0,
-      "neutral": 0
-    },
-    "Manufacturing": {
-      "positive": 0,
-      "negative": 1,
-      "neutral": 0
-    }
-  }
+  "by_industry": {},
+  "sentiment_trends": {}
 }
