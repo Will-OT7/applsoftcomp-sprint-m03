@@ -107,36 +107,26 @@ function clearFeedback() {
  */
 async function loadNewsData() {
     try {
-        // Load all 7 days of data
-        const dates = getLast7Days();
+        const aggregatesResponse = await fetch('data/aggregates.json');
+        const aggregates = await aggregatesResponse.json();
+        
+        const dates = Object.keys(aggregates.by_date || {});
         const promises = dates.map(date => fetch(`data/${date}.json`).then(r => r.json()).catch(() => []));
         
         const results = await Promise.all(promises);
         allNews = results.flat();
         
-        // Sort by date (newest first)
+        allNews = allNews.filter(item => item && item.title);
+        
         allNews.sort((a, b) => new Date(b.date) - new Date(a.date));
         
         filterAndRenderNews();
-        renderCharts();
+        renderCharts(aggregates);
     } catch (error) {
         console.error('Error loading news:', error);
         document.getElementById('news-container').innerHTML = 
             '<div class="error-message">Error loading news data. Please ensure the data files exist.</div>';
     }
-}
-
-/**
- * Get last 7 days as date strings
- */
-function getLast7Days() {
-    const dates = [];
-    for (let i = 0; i < 7; i++) {
-        const date = new Date();
-        date.setDate(date.getDate() - i);
-        dates.push(date.toISOString().split('T')[0]);
-    }
-    return dates;
 }
 
 /**
@@ -280,16 +270,14 @@ function formatDate(dateStr) {
 /**
  * Render charts using Chart.js
  */
-async function renderCharts() {
-    try {
-        const response = await fetch('data/aggregates.json');
-        const aggregates = await response.json().catch(() => ({ by_industry: {}, sentiment_trends: {}, by_date: {} }));
-        
-        renderSentimentChart(aggregates);
-        renderVolumeChart(aggregates);
-    } catch (error) {
-        console.error('Error loading aggregates:', error);
+function renderCharts(aggregates) {
+    if (!aggregates) {
+        console.error('No aggregates data provided');
+        return;
     }
+    
+    renderSentimentChart(aggregates);
+    renderVolumeChart(aggregates);
 }
 
 /**
@@ -299,9 +287,7 @@ function renderSentimentChart(aggregates) {
     const ctx = document.getElementById('sentiment-chart').getContext('2d');
     
     const industries = Object.keys(aggregates.sentiment_trends || {});
-    const dates = getLast7Days().reverse();
     
-    // For now, show current sentiment distribution
     const positiveData = industries.map(ind => aggregates.sentiment_trends[ind]?.positive || 0);
     const negativeData = industries.map(ind => aggregates.sentiment_trends[ind]?.negative || 0);
     const neutralData = industries.map(ind => aggregates.sentiment_trends[ind]?.neutral || 0);
