@@ -36,7 +36,7 @@ jobs:
         working-directory: .agents/skills/financial_news
         env:
           GEMINI_API_KEY: ${{ secrets.gemini_key }}
-        run: uv run python src/pipeline.py
+        run: uv run python -m src.pipeline
       
       - name: Configure git
         run: |
